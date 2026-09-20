@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://us-workout-lift-log.enjoy-onepage.com/sitemap.xml
