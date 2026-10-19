@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</title>
+  <title>Simple Workout &amp; Lift Tracker</title>
   <link>https://us-workout-lift-log.enjoy-onepage.com/</link>
-  <description>Log sets, reps, and weights. Calculate your One-Rep Max (1RM) using the Epley and Brzycki formulas to ensure progressive overload.</description>
+  <description>Log weightlifting sets, track reps and weights, and estimate your 1RM.</description>
   <language>en-us</language>
   <atom:link href="https://us-workout-lift-log.enjoy-onepage.com/rss.xml" rel="self" type="application/rss+xml" />
-  <lastBuildDate>Tue, 29 Sep 2026 06:03:22 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 19 Oct 2026 01:16:55 +0000</lastBuildDate>
   <item>
-    <title>Disclaimer | Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</title>
+    <title>Disclaimer | Simple Workout &amp; Lift Tracker</title>
     <link>https://us-workout-lift-log.enjoy-onepage.com/disclaimer.html</link>
     <guid isPermaLink="true">https://us-workout-lift-log.enjoy-onepage.com/disclaimer.html</guid>
-    <description>Disclaimer | Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</description>
-    <pubDate>Sun, 20 Sep 2026 22:15:47 +0900</pubDate>
+    <description>Disclaimer for the Simple Workout &amp; Lift Tracker.</description>
+    <pubDate>Mon, 19 Oct 2026 01:16:55 +0000</pubDate>
   </item>
   <item>
-    <title>Terms of Service | Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</title>
-    <link>https://us-workout-lift-log.enjoy-onepage.com/terms.html</link>
-    <guid isPermaLink="true">https://us-workout-lift-log.enjoy-onepage.com/terms.html</guid>
-    <description>Terms of Service | Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</description>
-    <pubDate>Sun, 20 Sep 2026 22:15:47 +0900</pubDate>
-  </item>
-  <item>
-    <title>Privacy Policy | Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</title>
+    <title>Privacy Policy | Simple Workout &amp; Lift Tracker</title>
     <link>https://us-workout-lift-log.enjoy-onepage.com/privacy.html</link>
     <guid isPermaLink="true">https://us-workout-lift-log.enjoy-onepage.com/privacy.html</guid>
-    <description>Privacy Policy | Simple Workout &amp; Lift Tracker | 1RM &amp; Progressive Overload Calculator</description>
-    <pubDate>Sun, 20 Sep 2026 22:15:47 +0900</pubDate>
+    <description>Privacy Policy for the Simple Workout &amp; Lift Tracker.</description>
+    <pubDate>Mon, 19 Oct 2026 01:16:55 +0000</pubDate>
+  </item>
+  <item>
+    <title>Terms of Service | Simple Workout &amp; Lift Tracker</title>
+    <link>https://us-workout-lift-log.enjoy-onepage.com/terms.html</link>
+    <guid isPermaLink="true">https://us-workout-lift-log.enjoy-onepage.com/terms.html</guid>
+    <description>Terms of Service for the Simple Workout &amp; Lift Tracker.</description>
+    <pubDate>Mon, 19 Oct 2026 01:16:55 +0000</pubDate>
   </item>
 </channel>
 </rss>

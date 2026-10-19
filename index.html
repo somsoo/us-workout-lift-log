@@ -1,28 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simple Workout &amp; Lift Tracker - Under maintenance</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="site-status" content="maintenance">
-<meta name="description" content="This tool is temporarily offline while it is rebuilt.">
+<title>Simple Workout &amp; Lift Tracker</title>
+<meta name="description" content="Log weightlifting sets, track reps and weights, and estimate your 1RM.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://us-workout-lift-log.enjoy-onepage.com/">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Simple Workout &amp; Lift Tracker">
+<meta property="og:title" content="Simple Workout &amp; Lift Tracker">
+<meta property="og:description" content="Log weightlifting sets, track reps and weights, and estimate your 1RM.">
+<meta property="og:url" content="https://us-workout-lift-log.enjoy-onepage.com/">
+<meta property="og:image" content="https://us-workout-lift-log.enjoy-onepage.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Simple Workout &amp; Lift Tracker">
+<meta name="twitter:description" content="Log weightlifting sets, track reps and weights, and estimate your 1RM.">
+<meta name="twitter:image" content="https://us-workout-lift-log.enjoy-onepage.com/og-image.png">
+<link rel="alternate" type="application/rss+xml" title="Workout Tracker RSS" href="https://us-workout-lift-log.enjoy-onepage.com/rss.xml">
+<link rel="sitemap" type="application/xml" href="https://us-workout-lift-log.enjoy-onepage.com/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://us-workout-lift-log.enjoy-onepage.com/#webapp",
+      "name": "Simple Workout & Lift Tracker",
+      "url": "https://us-workout-lift-log.enjoy-onepage.com/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "inLanguage": "en",
+      "description": "A streamlined barbell and strength training logger with set-by-set weight and rep recording, instant 1RM calculations, and integrated rest countdown timer.",
+      "image": "https://us-workout-lift-log.enjoy-onepage.com/og-image.png",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://us-workout-lift-log.enjoy-onepage.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is One Rep Max (1RM) estimated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator implements the clinically validated Epley equation: 1RM = Weight × (1 + Reps ÷ 30). For sets between 1 and 10 repetitions, this provides a reliable projection of maximum single-effort strength."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is total workout volume calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Workout volume load is calculated as the sum of (Weight × Reps) across all completed sets in the session. Tracking volume load is fundamental for ensuring progressive overload over time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the rest timer operate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clicking a quick rest preset (60s, 90s, 120s, or 180s) starts an in-browser countdown. A gentle auditory notification alerts you when your recovery window is complete."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my workout logs stored or shared?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All workout logs and training session histories are saved exclusively in your browser local storage. No fitness data or personal logs are uploaded to any external server."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- ADSENSE START: loader -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+<!-- ADSENSE END: loader -->
 <style>
-  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
-  main { max-width: 560px; margin: 12vh auto; padding: 32px 24px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; }
-  h1 { font-size: 1.4rem; margin: 0 0 12px; }
-  p { line-height: 1.6; color: #334155; }
-  a { color: #1d4ed8; font-weight: 600; }
-  .tag { display: inline-block; font-size: .8rem; font-weight: 700; color: #92400e; background: #fef3c7; border-radius: 999px; padding: 4px 10px; margin-bottom: 14px; }
+:root{--bg:#f8fafc;--card:#fff;--ink:#0f172a;--muted:#475569;--accent:#4f46e5;--accent-hover:#4338ca;--line:#e2e8f0;--success:#16a34a;--success-bg:#f0fdf4}
+*{box-sizing:border-box}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-wrap:anywhere}
+.header{background:linear-gradient(135deg,#3730a3,#4f46e5);color:#fff;text-align:center;padding:26px 16px 22px}
+.header h1{margin:0;font-size:1.7rem}
+.header-sub{opacity:.92;margin-top:6px;font-size:.95rem}
+.wrap{max-width:1100px;margin:0 auto;padding:12px 14px 8px}
+.grid2{display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:1024px){.grid2{grid-template-columns:7fr 5fr;align-items:start}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:14px 0}
+.grid2 .card{margin:0}
+.card h2{font-size:1.15rem;margin:4px 0 10px}
+.lbl{display:block;font-weight:600;margin:8px 0 4px;font-size:.92rem}
+input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1rem;padding:8px 10px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>div{flex:1 1 120px;min-width:0}
+.btn{font:inherit;border:1px solid #cbd5e1;background:#fff;color:var(--ink);border-radius:10px;padding:8px 13px;cursor:pointer;transition:background .15s}
+.btn:hover{background:#f8fafc}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.success{background:var(--success);border-color:var(--success);color:#fff;font-weight:700}
+.btn.sm{padding:4px 10px;font-size:.86rem;border-radius:8px}
+.btn-group{display:flex;gap:6px;margin-bottom:8px}
+.btn-toggle{flex:1;text-align:center;padding:7px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:600}
+.btn-toggle.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.set-table{width:100%;border-collapse:collapse;font-size:.88rem;margin:12px 0}
+.set-table th,.set-table td{padding:6px 8px;border-bottom:1px solid #f1f5f9;text-align:center}
+.set-table th{background:#f8fafc;color:var(--muted);font-weight:600}
+.set-table input{padding:6px;font-size:.92rem;text-align:center}
+.set-table select{padding:6px;font-size:.88rem}
+.set-table tr.completed{background:var(--success-bg)}
+.set-check{transform:scale(1.3);cursor:pointer;accent-color:var(--success)}
+.del-set-btn{color:#dc2626;background:none;border:none;cursor:pointer;font-weight:bold;font-size:1.1rem}
+.timer-box{background:#eef2ff;border:1px solid #c7d2fe;border-radius:12px;padding:12px;margin:12px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.timer-display{font-size:1.8rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent)}
+.timer-btns{display:flex;gap:6px;flex-wrap:wrap}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+@media (max-width:600px){.metric-grid{grid-template-columns:1fr}}
+.metric-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px}
+.metric-val{font-size:1.55rem;font-weight:800;color:var(--accent);margin:2px 0}
+.metric-lbl{font-size:.82rem;color:var(--muted);font-weight:600;text-transform:uppercase}
+.history-item{padding:8px 10px;border-bottom:1px solid #f1f5f9;font-size:.88rem}
+.history-item:last-child{border-bottom:none}
+.hint{font-size:.86rem;color:var(--muted);margin:6px 0}
+.notice{border-color:#fcd34d;background:#fffbeb}
+.faq-item h3{font-size:1rem;margin:12px 0 4px}
+.faq-item p{margin:0;color:#334155}
+.src{font-size:.82rem;color:var(--muted)}
+.ad-box{max-width:1100px;margin:10px auto;padding:0 14px;background:transparent;overflow:hidden;text-align:center}
+.ad-top ins{max-height:90px}
+.footer{text-align:center;font-size:.85rem;color:var(--muted);padding:18px 14px 28px}
+.footer a{color:var(--muted);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
 </style>
 </head>
 <body>
-<main>
-  <span class="tag">Under maintenance</span>
+<header class="header">
   <h1>Simple Workout &amp; Lift Tracker</h1>
-  <p>This tool is temporarily offline. We found that the previous version did not work the way it was described, so we took it down while we rebuild it properly.</p>
-  <p>Please check back later.</p>
-  <p><a href="https://enjoy-onepage.com/">Browse our other free tools</a></p>
+  <div class="header-sub">Barbell &amp; Weight Training Logger · Epley 1RM Estimator · Rest Interval Countdown</div>
+</header>
+
+<!-- ADSENSE START: top -->
+<div class="ad-box ad-top">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3824727725" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: top -->
+
+<main class="wrap">
+  <div class="grid2">
+    <!-- Main Workout Logger Card -->
+    <section class="card" aria-labelledby="logger-h">
+      <h2 id="logger-h">🏋️ Active Lift &amp; Set Logger</h2>
+
+      <div class="row">
+        <div style="flex:2 1 200px">
+          <label class="lbl" for="selExercise">Exercise</label>
+          <select id="selExercise">
+            <option value="Barbell Back Squat">Barbell Back Squat</option>
+            <option value="Barbell Bench Press" selected>Barbell Bench Press</option>
+            <option value="Conventional Deadlift">Conventional Deadlift</option>
+            <option value="Overhead Press (OHP)">Overhead Press (OHP)</option>
+            <option value="Barbell Bent-Over Row">Barbell Bent-Over Row</option>
+            <option value="Incline Dumbbell Press">Incline Dumbbell Press</option>
+            <option value="Romanian Deadlift (RDL)">Romanian Deadlift (RDL)</option>
+            <option value="Pull-Ups / Chin-Ups">Pull-Ups / Chin-Ups</option>
+            <option value="Custom">Custom Exercise...</option>
+          </select>
+        </div>
+        <div id="customExWrap" style="display:none;flex:2 1 180px">
+          <label class="lbl" for="customExName">Custom Exercise Name</label>
+          <input type="text" id="customExName" placeholder="e.g. Front Squat">
+        </div>
+        <div>
+          <label class="lbl">Unit</label>
+          <div class="btn-group" role="radiogroup" aria-label="Units">
+            <button type="button" id="btnUnitLbs" class="btn-toggle active" aria-checked="true" role="radio">LBS</button>
+            <button type="button" id="btnUnitKg" class="btn-toggle" aria-checked="false" role="radio">KG</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rest Countdown Bar -->
+      <div class="timer-box">
+        <div>
+          <div class="metric-lbl">Rest Interval Timer</div>
+          <div id="timerDisplay" class="timer-display">01:30</div>
+        </div>
+        <div class="timer-btns">
+          <button type="button" class="btn sm timer-preset" data-sec="60">60s</button>
+          <button type="button" class="btn sm timer-preset" data-sec="90">90s</button>
+          <button type="button" class="btn sm timer-preset" data-sec="120">2m</button>
+          <button type="button" class="btn sm timer-preset" data-sec="180">3m</button>
+          <button type="button" id="btnTimerToggle" class="btn primary sm">Start</button>
+          <button type="button" id="btnTimerReset" class="btn sm">Reset</button>
+        </div>
+      </div>
+
+      <!-- Set Table -->
+      <table class="set-table" aria-label="Workout set recording table">
+        <thead>
+          <tr>
+            <th style="width:40px">Set</th>
+            <th id="thWeight">Weight (lbs)</th>
+            <th>Reps</th>
+            <th>RPE</th>
+            <th>Est. 1RM</th>
+            <th style="width:60px">Done</th>
+            <th style="width:36px"></th>
+          </tr>
+        </thead>
+        <tbody id="setTableBody">
+          <!-- Sets dynamically rendered -->
+        </tbody>
+      </table>
+
+      <div class="actions">
+        <button type="button" id="btnAddSet" class="btn primary">+ Add Set</button>
+        <button type="button" id="btnFinishWorkout" class="btn success">✓ Save &amp; Log Workout</button>
+        <button type="button" id="btnResetSets" class="btn">Clear Current Sets</button>
+      </div>
+      <p class="hint">Check "Done" on completed sets to update total volume load and estimated 1RM.</p>
+    </section>
+
+    <!-- Session Analytics & History Card -->
+    <section class="card" aria-labelledby="analytics-h">
+      <h2 id="analytics-h">📊 Session Analytics &amp; Volume</h2>
+
+      <div class="metric-grid">
+        <div class="metric-box">
+          <div class="metric-lbl">Total Volume Load</div>
+          <div id="resTotalVol" class="metric-val">0 lbs</div>
+          <div id="resCompletedSets" class="hint" style="margin:0">0 of 0 sets completed</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-lbl">Session Best 1RM</div>
+          <div id="resBest1RM" class="metric-val">0 lbs</div>
+          <div id="res1RMFormula" class="hint" style="margin:0">Epley: W × (1 + R/30)</div>
+        </div>
+      </div>
+
+      <div class="actions" style="margin-bottom:14px">
+        <button type="button" id="btnCopyWorkout" class="btn primary">📋 Copy Workout Summary</button>
+        <button type="button" id="btnShareWorkout" class="btn">🔗 Share Tracker</button>
+      </div>
+
+      <div style="border-top:1px solid var(--line);padding-top:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <h3 style="font-size:1rem;margin:0">Recent Workout History</h3>
+          <button type="button" id="btnClearHistory" class="btn sm" style="padding:2px 8px">Clear</button>
+        </div>
+        <div id="historyList" style="max-height:220px;overflow-y:auto">
+          <p class="hint" style="text-align:center;padding:12px 0">No saved sessions yet. Complete your sets and tap "Save &amp; Log Workout".</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ADSENSE START: mid -->
+  <div class="ad-box ad-mid">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="1186914926" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <!-- ADSENSE END: mid -->
+
+  <!-- Educational & Biomechanical Guide -->
+  <section class="card" aria-labelledby="guide-h">
+    <h2 id="guide-h">📖 Strength Principles: 1RM and Progressive Overload</h2>
+    <p>Effective strength and hypertrophy adaptations rely on quantified progressive overload—gradually increasing training resistance, repetitions, or total session volume over time (National Strength and Conditioning Association - NSCA):</p>
+    <ul>
+      <li><strong>The Epley Formula for 1RM:</strong> 1RM = Weight × (1 + Reps ÷ 30). This equation provides high statistical accuracy for submaximal efforts between 1 and 10 repetitions without risking the neurological exhaustion of a true maximum lift.</li>
+      <li><strong>Volume Load Calculation:</strong> Calculated as Sets × Reps × Weight. Tracking session volume ensures systematic stimulus progression week-over-week.</li>
+      <li><strong>Rate of Perceived Exertion (RPE):</strong> Based on the Repetitions in Reserve (RIR) system: RPE 10 corresponds to 0 reps in reserve; RPE 9 equals 1 rep in reserve; RPE 8 equals 2 reps in reserve.</li>
+    </ul>
+    <p class="src">Scientific references: National Strength and Conditioning Association (NSCA) Essentials of Strength Training &amp; Conditioning; Epley B. (1985) Poundage Chart; American College of Sports Medicine (ACSM) Resistance Training Guidelines.</p>
+  </section>
+
+  <section class="card" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">❓ Frequently Asked Questions</h2>
+    <div class="faq-item"><h3>How is One Rep Max (1RM) estimated?</h3><p>The calculator implements the clinically validated Epley equation: 1RM = Weight × (1 + Reps ÷ 30). For sets between 1 and 10 repetitions, this provides a reliable projection of maximum single-effort strength.</p></div>
+    <div class="faq-item"><h3>How is total workout volume calculated?</h3><p>Workout volume load is calculated as the sum of (Weight × Reps) across all completed sets in the session. Tracking volume load is fundamental for ensuring progressive overload over time.</p></div>
+    <div class="faq-item"><h3>How does the rest timer operate?</h3><p>Clicking a quick rest preset (60s, 90s, 120s, or 180s) starts an in-browser countdown. A gentle auditory notification alerts you when your recovery window is complete.</p></div>
+    <div class="faq-item"><h3>Are my workout logs stored or shared?</h3><p>No. All workout logs and training session histories are saved exclusively in your browser local storage. No fitness data or personal logs are uploaded to any external server.</p></div>
+  </section>
+
+  <section class="card notice" aria-labelledby="note-h">
+    <h2 id="note-h">⚠️ Exercise Safety Disclaimer</h2>
+    <p>Weightlifting and resistance training carry inherent risks of musculoskeletal strain or injury. Perform appropriate dynamic warm-ups, utilize proper barbell safety collars and spotters, and consult a qualified fitness professional or sports physician prior to attempting maximal training loads.</p>
+  </section>
 </main>
+
+<!-- ADSENSE START: bottom -->
+<div class="ad-box ad-bottom">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3416334507" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: bottom -->
+
+<footer class="footer">
+  <p>Free Simple Workout &amp; Lift Tracker · 100% private and client-side.</p>
+  <p><a href="/disclaimer.html">Disclaimer</a> | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a></p>
+</footer>
+
+<div id="global-ux-toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- LOGIC START -->
+<script>
+(function () {
+  'use strict';
+  var SITE = 'https://us-workout-lift-log.enjoy-onepage.com';
+  var TOOL_NAME = 'Simple Workout & Lift Tracker';
+  var STORAGE_ACTIVE = 'us_lift_log_active';
+  var STORAGE_HISTORY = 'us_lift_log_history';
+
+  var isKg = false;
+  var sets = [];
+  var history = [];
+
+  function $(id) { return document.getElementById(id); }
+
+  function showToast(msg) {
+    var toast = $('global-ux-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._tid);
+    toast._tid = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  // Audio Beep for timer completion
+  function playBeep() {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.6);
+    } catch (e) {}
+  }
+
+  function setUnit(kg) {
+    isKg = kg;
+    $('btnUnitLbs').classList.toggle('active', !kg);
+    $('btnUnitLbs').setAttribute('aria-checked', !kg);
+    $('btnUnitKg').classList.toggle('active', kg);
+    $('btnUnitKg').setAttribute('aria-checked', kg);
+
+    var unitLabel = kg ? 'KG' : 'LBS';
+    $('thWeight').textContent = 'Weight (' + unitLabel.toLowerCase() + ')';
+
+    recalcSession();
+  }
+
+  function getExerciseName() {
+    var sel = $('selExercise').value;
+    if (sel === 'Custom') {
+      var custom = $('customExName').value.trim();
+      return custom || 'Custom Lift';
+    }
+    return sel;
+  }
+
+  function calculate1RM(weight, reps) {
+    if (!weight || !reps || reps <= 0) return 0;
+    if (reps === 1) return Math.round(weight);
+    // Epley Formula
+    return Math.round(weight * (1 + reps / 30));
+  }
+
+  function renderSets() {
+    var tbody = $('setTableBody');
+    tbody.innerHTML = '';
+
+    sets.forEach(function (s, idx) {
+      var tr = document.createElement('tr');
+      if (s.done) tr.className = 'completed';
+
+      var est1RM = calculate1RM(s.weight, s.reps);
+
+      tr.innerHTML = '<td><strong>' + (idx + 1) + '</strong></td>' +
+        '<td><input type="number" class="set-w" data-idx="' + idx + '" value="' + (s.weight || '') + '" min="0" step="2.5" placeholder="0"></td>' +
+        '<td><input type="number" class="set-r" data-idx="' + idx + '" value="' + (s.reps || '') + '" min="0" placeholder="0"></td>' +
+        '<td><select class="set-rpe" data-idx="' + idx + '">' +
+          '<option value=""' + (!s.rpe ? ' selected' : '') + '>-</option>' +
+          '<option value="10"' + (s.rpe === '10' ? ' selected' : '') + '>10 (0 RIR)</option>' +
+          '<option value="9"' + (s.rpe === '9' ? ' selected' : '') + '>9 (1 RIR)</option>' +
+          '<option value="8"' + (s.rpe === '8' ? ' selected' : '') + '>8 (2 RIR)</option>' +
+          '<option value="7"' + (s.rpe === '7' ? ' selected' : '') + '>7 (3 RIR)</option>' +
+        '</select></td>' +
+        '<td><strong class="set-1rm">' + (est1RM > 0 ? est1RM : '-') + '</strong></td>' +
+        '<td><input type="checkbox" class="set-check" data-idx="' + idx + '"' + (s.done ? ' checked' : '') + '></td>' +
+        '<td><button type="button" class="del-set-btn" data-idx="' + idx + '" title="Remove Set">&times;</button></td>';
+
+      tbody.appendChild(tr);
+    });
+
+    // Attach row events
+    var wInputs = tbody.querySelectorAll('.set-w');
+    var rInputs = tbody.querySelectorAll('.set-r');
+    var rpeSelects = tbody.querySelectorAll('.set-rpe');
+    var checkInputs = tbody.querySelectorAll('.set-check');
+    var delBtns = tbody.querySelectorAll('.del-set-btn');
+
+    wInputs.forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        var i = parseInt(this.getAttribute('data-idx'), 10);
+        sets[i].weight = parseFloat(this.value) || 0;
+        recalcSession();
+      });
+    });
+
+    rInputs.forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        var i = parseInt(this.getAttribute('data-idx'), 10);
+        sets[i].reps = parseInt(this.value, 10) || 0;
+        recalcSession();
+      });
+    });
+
+    rpeSelects.forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var i = parseInt(this.getAttribute('data-idx'), 10);
+        sets[i].rpe = this.value;
+        saveActiveState();
+      });
+    });
+
+    checkInputs.forEach(function (chk) {
+      chk.addEventListener('change', function () {
+        var i = parseInt(this.getAttribute('data-idx'), 10);
+        sets[i].done = this.checked;
+        var row = this.closest('tr');
+        if (row) row.classList.toggle('completed', this.checked);
+        recalcSession();
+        if (this.checked) {
+          startTimer(90); // default auto-start 90s rest
+        }
+      });
+    });
+
+    delBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var i = parseInt(this.getAttribute('data-idx'), 10);
+        sets.splice(i, 1);
+        renderSets();
+        recalcSession();
+      });
+    });
+
+    saveActiveState();
+  }
+
+  function recalcSession() {
+    var unit = isKg ? 'kg' : 'lbs';
+    var totalVolume = 0;
+    var completedCount = 0;
+    var best1RM = 0;
+
+    sets.forEach(function (s) {
+      var rm = calculate1RM(s.weight, s.reps);
+      if (rm > best1RM) best1RM = rm;
+      if (s.done) {
+        completedCount++;
+        totalVolume += (s.weight * s.reps);
+      }
+    });
+
+    $('resTotalVol').textContent = totalVolume.toLocaleString() + ' ' + unit;
+    $('resCompletedSets').textContent = completedCount + ' of ' + sets.length + ' sets completed';
+    $('resBest1RM').textContent = best1RM > 0 ? (best1RM.toLocaleString() + ' ' + unit) : '0 ' + unit;
+
+    // Update table 1RM cells
+    var rows = document.querySelectorAll('#setTableBody tr');
+    rows.forEach(function (row, idx) {
+      var s = sets[idx];
+      if (s) {
+        var cell = row.querySelector('.set-1rm');
+        var rm = calculate1RM(s.weight, s.reps);
+        if (cell) cell.textContent = rm > 0 ? rm : '-';
+      }
+    });
+
+    saveActiveState();
+  }
+
+  function addSet(defaultW, defaultR) {
+    var prev = sets[sets.length - 1];
+    var weight = defaultW !== undefined ? defaultW : (prev ? prev.weight : (isKg ? 60 : 135));
+    var reps = defaultR !== undefined ? defaultR : (prev ? prev.reps : 8);
+    sets.push({ weight: weight, reps: reps, rpe: '', done: false });
+    renderSets();
+    recalcSession();
+  }
+
+  // Active workout state persistence
+  function saveActiveState() {
+    try {
+      var state = {
+        exercise: $('selExercise').value,
+        customName: $('customExName').value,
+        isKg: isKg,
+        sets: sets
+      };
+      localStorage.setItem(STORAGE_ACTIVE, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  function loadActiveState() {
+    try {
+      var data = localStorage.getItem(STORAGE_ACTIVE);
+      if (data) {
+        var parsed = JSON.parse(data);
+        if (parsed.exercise) $('selExercise').value = parsed.exercise;
+        if (parsed.customName) $('customExName').value = parsed.customName;
+        if (parsed.exercise === 'Custom') $('customExWrap').style.display = 'block';
+        if (parsed.isKg) setUnit(true);
+        if (Array.isArray(parsed.sets) && parsed.sets.length > 0) {
+          sets = parsed.sets;
+          renderSets();
+          recalcSession();
+          return;
+        }
+      }
+    } catch (e) {}
+
+    // Initial default 3 sets
+    sets = [
+      { weight: 135, reps: 8, rpe: '', done: false },
+      { weight: 135, reps: 8, rpe: '', done: false },
+      { weight: 135, reps: 8, rpe: '', done: false }
+    ];
+    renderSets();
+    recalcSession();
+  }
+
+  // History management
+  function loadHistory() {
+    try {
+      var data = localStorage.getItem(STORAGE_HISTORY);
+      history = data ? JSON.parse(data) : [];
+    } catch (e) { history = []; }
+    renderHistory();
+  }
+
+  function saveHistory() {
+    try {
+      localStorage.setItem(STORAGE_HISTORY, JSON.stringify(history));
+    } catch (e) {}
+    renderHistory();
+  }
+
+  function renderHistory() {
+    var container = $('historyList');
+    if (!history || history.length === 0) {
+      container.innerHTML = '<p class="hint" style="text-align:center;padding:12px 0">No saved sessions yet. Complete your sets and tap "Save &amp; Log Workout".</p>';
+      return;
+    }
+    container.innerHTML = '';
+    history.slice().reverse().forEach(function (h) {
+      var div = document.createElement('div');
+      div.className = 'history-item';
+      div.innerHTML = '<div style="display:flex;justify-content:space-between;font-weight:700">' +
+        '<span>' + escapeHtml(h.exercise) + '</span>' +
+        '<span style="color:var(--accent)">' + h.totalVolume.toLocaleString() + ' ' + h.unit + '</span>' +
+        '</div>' +
+        '<div style="font-size:.82rem;color:var(--muted)">' + h.date + ' · ' + h.completedSets + ' sets · Best 1RM: ' + h.best1RM + ' ' + h.unit + '</div>';
+      container.appendChild(div);
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // Rest Timer Engine
+  var timerSeconds = 90;
+  var timerRemaining = 90;
+  var timerInterval = null;
+
+  function updateTimerDisplay() {
+    var m = Math.floor(timerRemaining / 60);
+    var s = timerRemaining % 60;
+    $('timerDisplay').textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function startTimer(sec) {
+    if (sec !== undefined) {
+      timerSeconds = sec;
+      timerRemaining = sec;
+    }
+    clearInterval(timerInterval);
+    updateTimerDisplay();
+    $('btnTimerToggle').textContent = 'Pause';
+    $('btnTimerToggle').classList.remove('primary');
+
+    timerInterval = setInterval(function () {
+      if (timerRemaining > 0) {
+        timerRemaining--;
+        updateTimerDisplay();
+        if (timerRemaining === 0) {
+          clearInterval(timerInterval);
+          $('btnTimerToggle').textContent = 'Start';
+          $('btnTimerToggle').classList.add('primary');
+          playBeep();
+          showToast('🔔 Rest time completed! Ready for your next set.');
+        }
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    $('btnTimerToggle').textContent = 'Resume';
+    $('btnTimerToggle').classList.add('primary');
+  }
+
+  // Event Listeners
+  $('btnUnitLbs').addEventListener('click', function () { setUnit(false); });
+  $('btnUnitKg').addEventListener('click', function () { setUnit(true); });
+
+  $('selExercise').addEventListener('change', function () {
+    $('customExWrap').style.display = (this.value === 'Custom') ? 'block' : 'none';
+    saveActiveState();
+  });
+
+  $('customExName').addEventListener('input', saveActiveState);
+
+  $('btnAddSet').addEventListener('click', function () { addSet(); });
+
+  $('btnResetSets').addEventListener('click', function () {
+    sets = [
+      { weight: isKg ? 60 : 135, reps: 8, rpe: '', done: false },
+      { weight: isKg ? 60 : 135, reps: 8, rpe: '', done: false },
+      { weight: isKg ? 60 : 135, reps: 8, rpe: '', done: false }
+    ];
+    renderSets();
+    recalcSession();
+    showToast('Reset to 3 empty sets');
+  });
+
+  $('btnFinishWorkout').addEventListener('click', function () {
+    var completed = sets.filter(function (s) { return s.done; });
+    if (completed.length === 0) {
+      showToast('Please check off at least 1 completed set before saving.');
+      return;
+    }
+    var unit = isKg ? 'kg' : 'lbs';
+    var vol = 0;
+    var best = 0;
+    completed.forEach(function (s) {
+      vol += (s.weight * s.reps);
+      var rm = calculate1RM(s.weight, s.reps);
+      if (rm > best) best = rm;
+    });
+
+    var entry = {
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      exercise: getExerciseName(),
+      unit: unit,
+      totalVolume: vol,
+      best1RM: best,
+      completedSets: completed.length
+    };
+
+    history.push(entry);
+    saveHistory();
+    showToast('Workout session logged to history!');
+  });
+
+  $('btnClearHistory').addEventListener('click', function () {
+    if (history.length === 0) return;
+    history = [];
+    saveHistory();
+    showToast('Workout history cleared');
+  });
+
+  // Timer controls
+  document.querySelectorAll('.timer-preset').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var s = parseInt(this.getAttribute('data-sec'), 10);
+      startTimer(s);
+      showToast('Timer started: ' + s + 's');
+    });
+  });
+
+  $('btnTimerToggle').addEventListener('click', function () {
+    if (timerInterval) {
+      pauseTimer();
+    } else {
+      startTimer();
+    }
+  });
+
+  $('btnTimerReset').addEventListener('click', function () {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerRemaining = timerSeconds;
+    updateTimerDisplay();
+    $('btnTimerToggle').textContent = 'Start';
+    $('btnTimerToggle').classList.add('primary');
+  });
+
+  // Share & Copy
+  $('btnCopyWorkout').addEventListener('click', function () {
+    var unit = isKg ? 'kg' : 'lbs';
+    var ex = getExerciseName();
+    var completed = sets.filter(function (s) { return s.done; });
+    var vol = $('resTotalVol').textContent;
+    var best = $('resBest1RM').textContent;
+
+    var text = '🏋️ Workout Log for ' + ex + ':\n' +
+      '• Total Volume: ' + vol + '\n' +
+      '• Estimated 1RM: ' + best + '\n' +
+      '• Sets Completed: ' + completed.length + '/' + sets.length + '\n';
+
+    completed.forEach(function (s, idx) {
+      text += '  Set ' + (idx + 1) + ': ' + s.weight + unit + ' × ' + s.reps + ' reps' + (s.rpe ? ' @RPE ' + s.rpe : '') + '\n';
+    });
+    text += '\nLogged via ' + TOOL_NAME + ': ' + SITE + '/';
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () {
+        showToast('Workout summary copied to clipboard!');
+      });
+    } else {
+      showToast('Could not copy automatically.');
+    }
+  });
+
+  $('btnShareWorkout').addEventListener('click', function () {
+    var shareMsg = '🏋️ Free Simple Workout & Lift Tracker\n👉 ' + TOOL_NAME + ': ' + SITE + '/';
+    if (navigator.share) {
+      navigator.share({ title: TOOL_NAME, text: shareMsg, url: SITE + '/' }).catch(function (e) {
+        if (!e || e.name !== 'AbortError') showToast('Link ready to share!');
+      });
+    } else {
+      showToast('Tracker URL: ' + SITE + '/');
+    }
+  });
+
+  loadActiveState();
+  loadHistory();
+  updateTimerDisplay();
+})();
+</script>
+<!-- LOGIC END -->
 </body>
 </html>
