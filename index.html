@@ -455,7 +455,7 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
     wInputs.forEach(function (inp) {
       inp.addEventListener('input', function () {
         var i = parseInt(this.getAttribute('data-idx'), 10);
-        sets[i].weight = parseFloat(this.value) || 0;
+        sets[i].weight = Math.max(0, parseFloat(this.value) || 0);
         recalcSession();
       });
     });
@@ -463,7 +463,7 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
     rInputs.forEach(function (inp) {
       inp.addEventListener('input', function () {
         var i = parseInt(this.getAttribute('data-idx'), 10);
-        sets[i].reps = parseInt(this.value, 10) || 0;
+        sets[i].reps = Math.max(0, parseInt(this.value, 10) || 0);
         recalcSession();
       });
     });
