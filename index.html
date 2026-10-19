@@ -161,6 +161,22 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
   .ad-bottom { min-height: 280px !important; }
   .ad-bottom ins { min-height: 280px !important; }
 </style>
+<style id="global-quality-shield">
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .ad-bottom, .ad-bottom ins {
+    min-height: 280px !important;
+    background: transparent !important;
+  }
+  :focus-visible {
+    outline: 2px solid #2563eb !important;
+    outline-offset: 2px !important;
+  }
+</style>
 </head>
 <body>
 <header class="header">
@@ -413,8 +429,8 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
       var est1RM = calculate1RM(s.weight, s.reps);
 
       tr.innerHTML = '<td><strong>' + (idx + 1) + '</strong></td>' +
-        '<td><input type="number" class="set-w" data-idx="' + idx + '" value="' + (s.weight || '') + '" min="0" step="2.5" placeholder="0"></td>' +
-        '<td><input type="number" class="set-r" data-idx="' + idx + '" value="' + (s.reps || '') + '" min="0" placeholder="0"></td>' +
+        '<td><input type="number" class="set-w" data-idx="' + idx + '" value="' + (s.weight || '') + '" min="0" step="2.5" placeholder="0" inputmode="numeric"></td>' +
+        '<td><input type="number" class="set-r" data-idx="' + idx + '" value="' + (s.reps || '') + '" min="0" placeholder="0" inputmode="numeric"></td>' +
         '<td><select class="set-rpe" data-idx="' + idx + '">' +
           '<option value=""' + (!s.rpe ? ' selected' : '') + '>-</option>' +
           '<option value="10"' + (s.rpe === '10' ? ' selected' : '') + '>10 (0 RIR)</option>' +
